@@ -1,60 +1,57 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <v-app>
+		<!-- Barra de navegación -->
+		<v-navigation-drawer app color="lania">
+			<v-list-item>
+				<v-list-item-content class="titulo">
+					<v-list-item-title>
+						<h1> Movies Store </h1>
+					</v-list-item-title>
+				</v-list-item-content>
+			</v-list-item>
+	
+			<v-divider></v-divider>
+	
+			<v-list dense nav>
+				<v-list-item v-for="item in items" :key="item.title" link>
+					<v-list-item-icon>
+						<v-icon color="enlaces">{{ item.icon }}</v-icon>
+					</v-list-item-icon>
+		
+					<v-list-item :to="item.route" color="enlaces">
+						<v-list-item-title class="titulo">{{ item.title }}</v-list-item-title>
+					</v-list-item>
+				</v-list-item>
+			</v-list>
+		</v-navigation-drawer>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+		<!-- Barra de título -->
+		<v-app-bar app color="indigo">
+			<v-toolbar-title class="headline text-uppercase">
+				<span></span>
+			</v-toolbar-title>
+			<v-spacer></v-spacer>
+		</v-app-bar>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+		<v-content>
+			<router-view/>
+		</v-content>
+		
+	</v-app>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
   data: () => ({
-    //
+
+     items: [
+        { title: 'Peliculas', icon: '', route: 'Peliculas' },
+        { title: 'Generos', icon: '', route: 'Generos' },
+        { title: 'Actores', icon: '', route: '' }
+        ],
+        right: null,
   }),
 };
 </script>
