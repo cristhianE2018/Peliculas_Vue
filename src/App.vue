@@ -26,7 +26,7 @@
 		</v-navigation-drawer>
 
 		<!-- Barra de título -->
-		<v-app-bar app color="deep-purple darken-4">
+		<v-app-bar app color="#1A242E">
 			<v-toolbar-title class="headline text-uppercase">
 				<span> </span>
 			</v-toolbar-title>
@@ -61,6 +61,6 @@ export default {
 	color: azure;
 }
 .contenido{
-	background-color: whitesmoke;
+	background-color: #1A242E;
 }
 </style>
