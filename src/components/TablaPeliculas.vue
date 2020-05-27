@@ -1,12 +1,29 @@
 <template>
     <v-container fluid>
         <v-row>
+            <v-col cols="4">
+                <v-select
+                color="white"
+                background-color="white"
+                v-model="select"
+                :hint="`${select.id}`"
+                :items="generos"
+                item-text="nombre"
+                item-value='id'
+                label="Buscar por Genero"
+                @change="obtenerPeliculasporGenero()"
+                dense
+                ></v-select>
+            </v-col>
+        </v-row>
+        
+        <v-row>
             <v-col cols="4" v-for="n in peliculas" :key="n">
-                <v-card class="mx-auto" max-width="400" color="#F1F1F1">
+                <v-card class="mx-auto" max-width="400" color="#263238">
                         <v-img
                         class="white--text align-end"
                         height="200px"
-                        :src= n.imagen 
+                        :src= n.imagen   
                         >
                             <v-card-title> {{ n.titulo }} </v-card-title>
                         </v-img>
@@ -41,7 +58,9 @@ export default {
     name: 'TablaPeliculas',
     data() {
         return {
-            peliculas: []
+            peliculas: [],
+            generos: [],
+            select: 0,
         }
     },
     methods: {
@@ -53,10 +72,29 @@ export default {
             .catch((error)=>{
                 console.log(error)
             })
+        },
+        obtenerGeneros() {
+            const path = 'http://127.0.0.1:8000/api/generos/'
+            axios.get(path).then((response) => {
+                this.generos = response.data
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        },
+        obtenerPeliculasporGenero() {
+            const path = `http://127.0.0.1:8000/api/generos/peliculas/${this.select}`
+            axios.get(path).then((response) => {
+                this.peliculas = response.data
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
         }
     },
     created () {
         this.ObtenerPeliculas();
+        this.obtenerGeneros();
     }
 }
 </script>
