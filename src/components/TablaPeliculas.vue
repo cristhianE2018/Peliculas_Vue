@@ -3,8 +3,8 @@
         <v-row>
             <v-col cols="4">
                 <v-select
-                color="white"
-                background-color="white"
+                class="select"
+                dark
                 v-model="select"
                 :hint="`${select.id}`"
                 :items="generos"
@@ -23,7 +23,7 @@
                         <v-img
                         class="white--text align-end"
                         height="200px"
-                        :src= n.imagen   
+                        :src= n.imagen
                         >
                             <v-card-title> {{ n.titulo }} </v-card-title>
                         </v-img>
@@ -34,13 +34,14 @@
 
                         <v-card-actions>
                             <v-btn
-                            color="blue"
+                            color="white"
+                            
                             text
                             >
                             Descripción
                         </v-btn>
                         <v-btn
-                            color="blue"
+                            color="white"
                             text
                         >
                             Ver
@@ -100,5 +101,7 @@ export default {
 </script>
 
 <style scoped>
-
+.select{
+    color: antiquewhite;
+}
 </style>
