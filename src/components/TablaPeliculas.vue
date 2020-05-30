@@ -1,5 +1,35 @@
 <template>
-    <v-container fluid>
+    <v-container fluid class="cont">
+        <v-row justify="center">
+            <v-dialog v-model="dialog" persistent  dark="" max-width="600px">
+            <v-card>
+                    <v-toolbar dark color="primary">
+                    <v-btn icon dark @click="dialog = false">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title> Mas información de la pelicula {{ peli.title }} </v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-toolbar-items>
+                        
+                    </v-toolbar-items>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <h1 class="text-center"> Resumen </h1>
+                                </v-col>
+                                <v-col cols="12">
+                                    <p class="text-center">
+                                        {{ peli.descripcion }}
+                                    </p>
+                                </v-col>
+                            </v-row>
+                        </v-container> 
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+        </v-row>
         <v-row>
             <v-col cols="4">
                 <v-select
@@ -31,21 +61,26 @@
 
                         <v-card-text class="text--primary">
                         </v-card-text>
-
+                        
                         <v-card-actions>
+                            <template>
+
+                            </template>
+                                    <v-btn
+
+                                        color="white"
+                                        @click="c(n)"
+                                        text
+                                        >
+                                        Descripción
+                                    </v-btn>
+                                   
                             <v-btn
                             color="white"
-                            
                             text
                             >
-                            Descripción
-                        </v-btn>
-                        <v-btn
-                            color="white"
-                            text
-                        >
                             Ver
-                        </v-btn>
+                            </v-btn>
                         </v-card-actions>
                 </v-card>
             </v-col>
@@ -61,7 +96,14 @@ export default {
         return {
             peliculas: [],
             generos: [],
+            peli: {
+                'title':'',
+                'descripcion': ''
+            },
             select: 0,
+            dialog: false,
+            title: "",
+            descripcion: "",
         }
     },
     methods: {
@@ -91,6 +133,11 @@ export default {
             .catch((error)=>{
                 console.log(error)
             })
+        },
+        c(n) {
+            this.dialog= true;
+            this.peli.title= n.titulo;
+            this.peli.descripcion = n.descripcion;
         }
     },
     created () {
