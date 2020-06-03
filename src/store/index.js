@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     peliculas: [],
-    generos: []
+    generos: [],
+    ejemplo: false,
+    trailer: ''
   },
   mutations: {
     //Función que solicitará las peliculas a la API
@@ -28,6 +30,20 @@ export default new Vuex.Store({
             .catch((error)=>{
                 console.log(error)
             })
+      },
+      //Función que solicitará las peliculas dependiendo el genero seleccionado
+      ObtenerPeliculasporGenero: function(state, select) {
+        const path = `http://127.0.0.1:8000/api/generos/peliculas/${select}`
+        axios.get(path).then((response) => {
+            state.peliculas = response.data
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    },
+      verTrailer: function(state,direccion){
+        state.ejemplo= true;
+        state.trailer = direccion;
       }
   },
   actions: {

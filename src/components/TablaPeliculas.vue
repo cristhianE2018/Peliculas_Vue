@@ -1,29 +1,8 @@
 <template>
     <v-container fluid class="cont">
-        <v-row justify="center">
-            <v-dialog v-model="dialog2" max-width="800px" persistent class="ModalTrailer">
-                <v-card class="ModalTrailer">
-                    <v-toolbar dark color="#1A242E">
-                    <v-btn icon dark @click="dialog2=false">
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                    <v-toolbar-title> Tráiler </v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-toolbar-items>
-                        
-                    </v-toolbar-items>
-                    </v-toolbar>
-                    <v-card-text>
-                        <video 
-                        class="vtrailer"
-                        :src= direccion
-                        autoplay
-                        controls
-                        ></video>
-                    </v-card-text>
-                </v-card>
-            </v-dialog>
-        </v-row>
+        <!-- Componente modal donde se visualizará el trailer de la pelicula -->
+            <ModalTrailer></ModalTrailer>
+        
         <v-row justify="center">
             <v-dialog v-model="dialog" persistent  dark="" max-width="600px">
             <v-card>
@@ -69,15 +48,15 @@
                 class="select"
                 dark
                 v-model="select"
-                :hint="`${select.id}`"
                 :items="generos"
                 item-text="nombre"
                 item-value='id'
                 label="Buscar por Genero"
-                @change="obtenerPeliculasporGenero()"
+                @change="ObtenerPeliculasporGenero(select)"
                 dense
                 ></v-select>
             </v-col>
+            <v-col cols="4"> {{ select }} </v-col>
         </v-row>
         
         <v-row>
@@ -123,19 +102,23 @@
 </template>
 
 <script>
+import ModalTrailer from '@/components/ModalTrailer.vue'
 import axios from 'axios'
 import { mapState, mapMutations } from 'vuex'
 export default {
     name: 'TablaPeliculas',
+    components: {
+        ModalTrailer,
+    },
     data() {
         return {
             peli: {
                 'title':'',
                 'descripcion': ''
             },
-            select: 0,
             dialog: false,
             dialog2: false,
+            select: 0,
             title: "",
             direccion: "",
             descripcion: "",
@@ -143,15 +126,7 @@ export default {
         }
     },
     methods: {
-        obtenerPeliculasporGenero() {
-            const path = `http://127.0.0.1:8000/api/generos/peliculas/${this.select}`
-            axios.get(path).then((response) => {
-                this.peliculas = response.data
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-        },
+        
         obtenerReparto(id){
             const path= `http://127.0.0.1:8000/api/actores/pelicula/${id}`
             axios.get(path).then((response) => {
@@ -160,10 +135,6 @@ export default {
             .catch((error)=>{
                 console.log(error)
             })
-        },
-        verTrailer(dir) {
-            this.dialog2=true;
-            this.direccion= dir;
         },
         c(n) {
             this.dialog= true;
@@ -175,14 +146,14 @@ export default {
             this.dialog=false;
             this.reparto=[];
         },
-        ...mapMutations(['ObtenerPeliculas','ObtenerGeneros'])
+        ...mapMutations(['ObtenerPeliculas','ObtenerGeneros','ObtenerPeliculasporGenero','verTrailer'])
     },
     created () {
         this.ObtenerPeliculas();
         this.ObtenerGeneros();
     },
     computed: {
-        ...mapState(['peliculas','generos'])
+        ...mapState(['peliculas','generos','ejemplo'])
     }
 }
 </script>
@@ -191,10 +162,5 @@ export default {
 .select{
     color: antiquewhite;
 }
-.ModalTrailer{
-    background-color: transparent;
-}
-.vtrailer{
-    max-width: 750px;
-}
+
 </style>
