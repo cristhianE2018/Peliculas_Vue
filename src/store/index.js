@@ -7,6 +7,11 @@ export default new Vuex.Store({
   state: {
     peliculas: [],
     generos: [],
+    dialog: false,
+    peli: {
+      title: '',
+      descripcion: '',
+    },
     ejemplo: false,
     trailer: ''
   },
@@ -41,10 +46,16 @@ export default new Vuex.Store({
             console.log(error)
         })
     },
+    
       verTrailer: function(state,direccion){
         state.ejemplo= true;
         state.trailer = direccion;
-      }
+      },
+      verDescripcion: function(state, pelicula){
+        state.dialog = true;
+        state.peli.title = pelicula.titulo;
+        state.peli.descripcion = pelicula.descripcion;
+      } 
   },
   actions: {
   },

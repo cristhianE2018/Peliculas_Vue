@@ -23,11 +23,6 @@ Vue.use(VueRouter)
     name: 'Peliculas',
     component: () => import('../views/Peliculas.vue')
   },
-  {
-    path: '/generos',
-    name: 'Generos',
-    component: () => import('../views/Generos.vue')
-  }
 ]
 
 const router = new VueRouter({

@@ -48,8 +48,6 @@ export default {
 
      items: [
         { title: 'Peliculas', icon: '', route: 'Peliculas' },
-        { title: 'Generos', icon: '', route: 'Generos' },
-        { title: 'Actores', icon: '', route: '' }
         ],
         right: null,
   }),

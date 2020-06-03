@@ -2,46 +2,9 @@
     <v-container fluid class="cont">
         <!-- Componente modal donde se visualizará el trailer de la pelicula -->
             <ModalTrailer></ModalTrailer>
-        
-        <v-row justify="center">
-            <v-dialog v-model="dialog" persistent  dark="" max-width="600px">
-            <v-card>
-                    <v-toolbar dark color="primary">
-                    <v-btn icon dark @click="cerrar()">
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                    <v-toolbar-title> Mas información de la pelicula {{ peli.title }} </v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-toolbar-items>
-                        
-                    </v-toolbar-items>
-                    </v-toolbar>
-                    <v-card-text>
-                        <v-container>
-                            <v-row>
-                                <v-col cols="12">
-                                    <h3> Reparto </h3>
-                                </v-col>
-                                <v-col cols="4" v-for="a in reparto" :key="a">
-                                    <v-img
-                                    :src= a.imagen>
-                                    </v-img>
-                                    <span class="text-center"> {{ a.nombre }} </span>
-                                </v-col>
-                                <v-col cols="12">
-                                    <h1 class="text-center"> Resumen </h1>
-                                </v-col>
-                                <v-col cols="12">
-                                    <p class="text-justify">
-                                        {{ peli.descripcion }}
-                                    </p>
-                                </v-col>
-                            </v-row>
-                        </v-container> 
-                    </v-card-text>
-                </v-card>
-            </v-dialog>
-        </v-row>
+        <!-- Componente modal donde se visualizará la información de la pelicula -->
+            <ModalDescripcion> </ModalDescripcion>
+
         <v-row>
             <v-col cols="4">
                 <v-select
@@ -81,7 +44,7 @@
                                     <v-btn
 
                                         color="white"
-                                        @click="c(n)"
+                                        @click="verDescripcion(n)"
                                         text
                                         >
                                         Descripción
@@ -103,30 +66,21 @@
 
 <script>
 import ModalTrailer from '@/components/ModalTrailer.vue'
+import ModalDescripcion from '@/components/ModalDescripcion.vue'
 import axios from 'axios'
 import { mapState, mapMutations } from 'vuex'
 export default {
     name: 'TablaPeliculas',
     components: {
-        ModalTrailer,
+        ModalTrailer, ModalDescripcion,
     },
     data() {
         return {
-            peli: {
-                'title':'',
-                'descripcion': ''
-            },
-            dialog: false,
-            dialog2: false,
             select: 0,
-            title: "",
-            direccion: "",
-            descripcion: "",
             reparto: [],
         }
     },
     methods: {
-        
         obtenerReparto(id){
             const path= `http://127.0.0.1:8000/api/actores/pelicula/${id}`
             axios.get(path).then((response) => {
@@ -136,24 +90,19 @@ export default {
                 console.log(error)
             })
         },
-        c(n) {
-            this.dialog= true;
-            this.peli.title= n.titulo;
-            this.peli.descripcion = n.descripcion;
-            this.obtenerReparto(n.id);
-        },
         cerrar() {
             this.dialog=false;
             this.reparto=[];
         },
-        ...mapMutations(['ObtenerPeliculas','ObtenerGeneros','ObtenerPeliculasporGenero','verTrailer'])
+        ...mapMutations(['ObtenerPeliculas','ObtenerGeneros',
+            'ObtenerPeliculasporGenero','verTrailer','verDescripcion'])
     },
     created () {
         this.ObtenerPeliculas();
         this.ObtenerGeneros();
     },
     computed: {
-        ...mapState(['peliculas','generos','ejemplo'])
+        ...mapState(['peliculas','generos'])
     }
 }
 </script>
