@@ -1,10 +1,11 @@
 <template>
+    
     <v-container fluid class="cont">
         <!-- Componente modal donde se visualizará el trailer de la pelicula -->
             <ModalTrailer></ModalTrailer>
         <!-- Componente modal donde se visualizará la información de la pelicula -->
             <ModalDescripcion> </ModalDescripcion>
-
+        
         <v-row>
             <v-col cols="4">
                 <v-select
@@ -19,11 +20,30 @@
                 dense
                 ></v-select>
             </v-col>
-            <v-col cols="4"> {{ select }} </v-col>
         </v-row>
-        
         <v-row>
-            <v-col cols="4" v-for="n in peliculas" :key="n">
+           <!-- <v-col cols="12" v-if="!servidor">
+                <h4> Servidor no disponible </h4>
+            </v-col> -->
+            <v-col cols="12" v-if="peliculas.length==0">
+                <v-col v-if="mensaje">
+                    <h4> {{ mensaje }} 
+                        <v-img
+                        src="servidor.jpg"
+                        >
+                        </v-img>
+                    </h4>
+                </v-col>
+                <v-col v-else>
+                    <h4 class="mensaje"> Buscando ..... </h4>
+                <v-sheet color="#263238" class="px-3">
+                    <v-skeleton-loader class="mx-auto cargar" max-width="1000" type="text"></v-skeleton-loader>
+                </v-sheet>
+                </v-col>
+                
+            </v-col>
+
+            <v-col cols="4" v-for="n in peliculas" :key="n" v-else>
                 <v-card class="mx-auto" max-width="400" color="#263238">
                         <v-img
                         class="white--text align-end"
@@ -95,14 +115,14 @@ export default {
             this.reparto=[];
         },
         ...mapMutations(['ObtenerPeliculas','ObtenerGeneros',
-            'ObtenerPeliculasporGenero','verTrailer','verDescripcion'])
+            'ObtenerPeliculasporGenero','verTrailer','verDescripcion','servidor'])
     },
     created () {
         this.ObtenerPeliculas();
         this.ObtenerGeneros();
     },
     computed: {
-        ...mapState(['peliculas','generos'])
+        ...mapState(['peliculas','generos','verdad','servidor','mensaje'])
     }
 }
 </script>
@@ -111,5 +131,10 @@ export default {
 .select{
     color: antiquewhite;
 }
-
+.cargar{
+    background-color: #263238;
+}
+.mensaje{
+    color: azure;
+}
 </style>

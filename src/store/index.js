@@ -6,13 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     peliculas: [],
+    servidor: true,
     generos: [],
+    verdad: true,
     dialog: false,
+    mensaje: '',
     peli: {
       title: '',
       descripcion: '',
     },
     ejemplo: false,
+    reparto: [],
     trailer: ''
   },
   mutations: {
@@ -23,7 +27,8 @@ export default new Vuex.Store({
             state.peliculas = response.data
         })
         .catch((error)=>{
-            console.log(error)
+          state.mensaje= "El servidor no responde " + error
+
         })
     },
     //Función que solicitará los generos a la API
@@ -44,9 +49,9 @@ export default new Vuex.Store({
         })
         .catch((error)=>{
             console.log(error)
+            alert("que pedo");
         })
     },
-    
       verTrailer: function(state,direccion){
         state.ejemplo= true;
         state.trailer = direccion;
@@ -55,7 +60,13 @@ export default new Vuex.Store({
         state.dialog = true;
         state.peli.title = pelicula.titulo;
         state.peli.descripcion = pelicula.descripcion;
-      } 
+        const path = `http://127.0.0.1:8000/api/actores/pelicula/${pelicula.id}`
+        axios.get(path).then((response)=>{
+          state.reparto = response.data;
+        }).catch((error)=>{
+          console.log(error)
+        })
+      },
   },
   actions: {
   },

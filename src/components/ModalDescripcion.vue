@@ -13,7 +13,19 @@
                     </v-toolbar-items>
                     </v-toolbar>
                     <v-card-text>
-                        <v-container>
+                            <v-row>
+                                <v-col cols=12 v-if="reparto.length==0">
+                                    <v-sheet color="#263238" class="px-3">
+                                    <v-skeleton-loader class="mx-auto cargar" max-width="1000" type="text">
+                                    </v-skeleton-loader>
+                                    </v-sheet>
+                                </v-col>
+                                <v-col cols="4" v-for='actor in reparto' :key="actor" v-else>
+                                <v-img
+                                :src=actor.imagen
+                                > </v-img>
+                                </v-col>
+                            </v-row>
                             <v-row>
                                 <v-col cols="12">
                                     <h1 class="text-center"> Resumen </h1>
@@ -24,7 +36,6 @@
                                     </p>
                                 </v-col>
                             </v-row>
-                        </v-container> 
                     </v-card-text>
                 </v-card>
             </v-dialog>
@@ -36,7 +47,7 @@ import { mapState } from 'vuex'
 export default {
     name: 'ModalDescripcion',
     computed: {
-        ...mapState(['dialog','peli'])
+        ...mapState(['dialog','peli','reparto'])
     }
 }
 </script>
