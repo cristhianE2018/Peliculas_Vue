@@ -5,7 +5,7 @@
 			<v-list-item>
 				<v-list-item-content class="itemslist">
 					<v-list-item-title>
-						<h1> Movies Store </h1>
+						<h1> Movieland </h1>
 					</v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
@@ -28,7 +28,8 @@
 		<!-- Barra de título -->
 		<v-app-bar app color="#1A242E">
 			<v-toolbar-title class="headline text-uppercase">
-				<span> </span>
+				<h5 class="promo" > Difruta de las mejores peliculas y series </h5>
+				
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 		</v-app-bar>
@@ -48,6 +49,10 @@ export default {
 
      items: [
         { title: 'Peliculas', icon: '', route: 'Peliculas' },
+		{ title: 'Series', icon: '', route: '' },
+		{ title: 'Configuración', icon: '', route: '' },
+		{ title: 'Añadidos recientemente', icon: '', route: '' },
+		{ title: 'A cerca de', icon: '', route: '' },
         ],
         right: null,
   }),
@@ -57,6 +62,9 @@ export default {
 <style scoped>
 .itemslist{
 	color: azure;
+}
+.promo{
+	color: aliceblue;
 }
 .contenido{
 	background-color: #1A242E;

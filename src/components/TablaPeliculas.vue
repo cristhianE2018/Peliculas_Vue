@@ -26,43 +26,50 @@
                 <h4> Servidor no disponible </h4>
             </v-col> -->
             <v-col cols="12" v-if="peliculas.length==0">
-                <v-col v-if="mensaje">
-                    <h4> {{ mensaje }} 
+                <v-row  v-if="mensaje" justify="center">
+                    
                         <v-img
-                        src="servidor.jpg"
+                        max-height="400"
+                        max-width="400"
+                        src="servidor.png"
+                        
                         >
                         </v-img>
-                    </h4>
-                </v-col>
-                <v-col v-else>
-                    <h4 class="mensaje"> Buscando ..... </h4>
-                <v-sheet color="#263238" class="px-3">
-                    <v-skeleton-loader class="mx-auto cargar" max-width="1000" type="text"></v-skeleton-loader>
-                </v-sheet>
-                </v-col>
+                    
+                </v-row>
+                <v-row v-else justify="center">
+                    <v-cols cols="12">
+                        <h1 class="mensaje"> Buscando ..... </h1>
+                        <v-sheet color="transparent" class="px-3" tile="">
+                            <v-skeleton-loader class="mx-auto cargar" 
+                            loading max-width="1000" 
+                            type="text"
+                            >
+                            </v-skeleton-loader>
+                        </v-sheet>
+                    </v-cols>
+                
+                </v-row>
+                    
+                
                 
             </v-col>
 
             <v-col cols="4" v-for="n in peliculas" :key="n" v-else>
-                <v-card class="mx-auto" max-width="400" color="#263238">
+                <v-card class="mx-auto" max-width="400"
+                elevation="15"
+                 color="#1A242E">
                         <v-img
                         class="white--text align-end"
                         height="200px"
                         :src= n.imagen
                         >
-                            <v-card-title> {{ n.titulo }} </v-card-title>
                         </v-img>
-                        <v-card-subtitle class="pb-0"> Año de estreno: {{ n.anio_estreno }}</v-card-subtitle>
-
                         <v-card-text class="text--primary">
                         </v-card-text>
                         
-                        <v-card-actions>
-                            <template>
-
-                            </template>
+                        <v-card-actions >
                                     <v-btn
-
                                         color="white"
                                         @click="verDescripcion(n)"
                                         text

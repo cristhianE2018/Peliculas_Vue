@@ -15,7 +15,7 @@
                     <v-card-text>
                             <v-row>
                                 <v-col cols=12 v-if="reparto.length==0">
-                                    <v-sheet color="#263238" class="px-3">
+                                    <v-sheet color="#263238" class="px-3" light>
                                     <v-skeleton-loader class="mx-auto cargar" max-width="1000" type="text">
                                     </v-skeleton-loader>
                                     </v-sheet>
