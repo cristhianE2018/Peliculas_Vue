@@ -6,6 +6,7 @@
 				<v-list-item-content class="itemslist">
 					<v-list-item-title>
 						<h1> Movieland </h1>
+						
 					</v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
@@ -15,7 +16,7 @@
 			<v-list dense nav>
 				<v-list-item v-for="item in items" :key="item.title" link>
 					<v-list-item-icon>
-						<v-icon>{{ item.icon }}</v-icon>
+						<v-icon color="white">{{ item.icon }}</v-icon>
 					</v-list-item-icon>
 
 					<v-list-item :to="item.route" color="indigo">
@@ -27,6 +28,7 @@
 
 		<!-- Barra de título -->
 		<v-app-bar app color="#1A242E">
+			<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title class="headline text-uppercase">
 				<h5 class="promo" > Difruta de las mejores peliculas y series </h5>
 				
@@ -37,7 +39,9 @@
 		<v-content class="contenido">
 			<router-view/>
 		</v-content>
-		
+		<v-footer color="#293646"> 
+			
+		</v-footer>
 	</v-app>
   
 </template>
@@ -46,15 +50,14 @@
 export default {
   name: 'App',
   data: () => ({
-
      items: [
-        { title: 'Peliculas', icon: '', route: 'Peliculas' },
-		{ title: 'Series', icon: '', route: '' },
-		{ title: 'Configuración', icon: '', route: '' },
-		{ title: 'Añadidos recientemente', icon: '', route: '' },
-		{ title: 'A cerca de', icon: '', route: '' },
+        { title: 'Peliculas', icon: 'movie', route: 'Peliculas' },
+		{ title: 'Series', icon: 'play_arrow', route: '' },
+		{ title: 'Configuración', icon: 'settings', route: '' },
+		{ title: 'Añadidos recientemente', icon: 'schedule', route: '' },
+		{ title: 'A cerca de', icon: 'info', route: '' },
         ],
-        right: null,
+		drawer: null,
   }),
 };
 </script>

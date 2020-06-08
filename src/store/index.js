@@ -6,9 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     peliculas: [],
-    servidor: true,
     generos: [],
-    verdad: true,
     dialog: false,
     mensaje: '',
     peli: {
@@ -27,8 +25,7 @@ export default new Vuex.Store({
             state.peliculas = response.data
         })
         .catch((error)=>{
-          state.mensaje= "El servidor no responde " + error
-
+          state.mensaje= error
         })
     },
     //Función que solicitará los generos a la API

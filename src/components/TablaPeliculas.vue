@@ -6,11 +6,13 @@
         <!-- Componente modal donde se visualizará la información de la pelicula -->
             <ModalDescripcion> </ModalDescripcion>
         
+        <!-- Select para seleccionar un genero especifico -->
         <v-row>
             <v-col cols="4">
                 <v-select
                 class="select"
                 dark
+                append-icon="search"
                 v-model="select"
                 :items="generos"
                 item-text="nombre"
@@ -21,21 +23,17 @@
                 ></v-select>
             </v-col>
         </v-row>
+
         <v-row>
-           <!-- <v-col cols="12" v-if="!servidor">
-                <h4> Servidor no disponible </h4>
-            </v-col> -->
             <v-col cols="12" v-if="peliculas.length==0">
                 <v-row  v-if="mensaje" justify="center">
-                    
                         <v-img
                         max-height="400"
                         max-width="400"
                         src="servidor.png"
-                        
                         >
                         </v-img>
-                    
+                        <h3> {{ mensaje }} </h3>
                 </v-row>
                 <v-row v-else justify="center">
                     <v-cols cols="12">
@@ -54,7 +52,7 @@
                 
                 
             </v-col>
-
+            <!--  -->
             <v-col cols="4" v-for="n in peliculas" :key="n" v-else>
                 <v-card class="mx-auto" max-width="400"
                 elevation="15"
@@ -83,7 +81,11 @@
                             @click="verTrailer(n.trailer)"
                             >
                             Ver Tráiler
+                            <span class="material-icons">
+                                visibility
+                            </span>
                             </v-btn>
+                            
                         </v-card-actions>
                 </v-card>
             </v-col>
